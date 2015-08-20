@@ -20,19 +20,19 @@ package org.jitsi.android.gui.menu;
 import java.util.*;
 
 import net.java.sip.communicator.service.protocol.*;
-import net.java.sip.communicator.service.update.*;
-import net.java.sip.communicator.util.*;
 import net.java.sip.communicator.util.account.*;
 
 import org.jitsi.*;
 import org.jitsi.android.*;
-import org.jitsi.android.gui.*;
 import org.jitsi.android.gui.account.*;
 import org.jitsi.android.gui.contactlist.*;
 import org.jitsi.android.gui.settings.*;
 
 import android.os.*;
 import android.view.*;
+
+import net.hockeyapp.android.CheckUpdateTask;
+import net.hockeyapp.android.UpdateActivity;
 
 /**
  * The main options menu. Every <tt>Activity</tt> that desires to have the
@@ -45,6 +45,7 @@ import android.view.*;
 public class MainMenuActivity
     extends ExitMenuActivity
 {
+	private CheckUpdateTask checkUpdateTask;
     /**
      * Called when the activity is starting. Initializes the corresponding
      * call interface.
@@ -58,6 +59,8 @@ public class MainMenuActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        UpdateActivity.iconDrawableId = R.drawable.notificationicon;
+        checkForUpdates();
     }
 
     /**
@@ -126,21 +129,21 @@ public class MainMenuActivity
             JitsiApplication.showSendLogsDialog();
             return true;
         case R.id.check_for_update:
-            new Thread()
-            {
-                @Override
-                public void run()
-                {
-                    UpdateService updateService
-                        = ServiceUtils.getService(
-                                AndroidGUIActivator.bundleContext,
-                                UpdateService.class);
-                    updateService.checkForUpdates(true);
-                }
-            }.start();
+            checkForUpdates();
             return true;
         default:
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void checkForUpdates() {
+        checkUpdateTask = (CheckUpdateTask)getLastNonConfigurationInstance();
+        if (checkUpdateTask != null) {
+            checkUpdateTask.attach(this);
+        }
+        else {
+            checkUpdateTask = new CheckUpdateTask(this, "https://www.459below.org/hockey/");
+            checkUpdateTask.execute();
         }
     }
 }

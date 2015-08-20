@@ -1,0 +1,3 @@
+[submodule "external/HockeyKit"]
+	path = external/HockeyKit
+	url = git://github.com/bitstadium/HockeyKit
