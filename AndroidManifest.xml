@@ -290,6 +290,7 @@
                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>-->
+        <activity android:name="net.hockeyapp.android.UpdateActivity" />
         <service android:name=".service.osgi.OSGiService" />
         <service android:name=".android.gui.account.AccountAuthenticatorService"
               android:exported="true" android:process=":auth">
