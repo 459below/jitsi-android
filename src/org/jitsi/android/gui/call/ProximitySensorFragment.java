@@ -187,7 +187,7 @@ public class ProximitySensorFragment
         {
             screenOffDialog.dismiss();
         } else {
-            logger.warn("Activity was null when trying to get ScreenOffDialog");
+            logger.warn("ScreenOffDialog was null when trying to get it");
         }
     }
 
