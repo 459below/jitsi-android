@@ -168,7 +168,7 @@ public class ProximitySensorFragment
     private void screenOff()
     {
         Activity activity = getActivity();
-        if(activity == null || sensorDisabled)
+        if(activity == null || sensorDisabled || getScreenOffDialog() != null)
             return;
 
         FragmentManager fm = ((OSGiActivity)activity)
@@ -186,6 +186,8 @@ public class ProximitySensorFragment
         if(screenOffDialog != null)
         {
             screenOffDialog.dismiss();
+        } else {
+            logger.warn("Activity was null when trying to get ScreenOffDialog");
         }
     }
 
