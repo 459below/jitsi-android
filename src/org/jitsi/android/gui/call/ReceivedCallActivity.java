@@ -24,6 +24,7 @@ import org.jitsi.service.osgi.*;
 
 import android.content.*;
 import android.graphics.*;
+import android.media.AudioManager;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -56,6 +57,11 @@ public class ReceivedCallActivity
      * The corresponding call.
      */
     private Call call;
+
+    /**
+     * The AudioManager.
+     */
+    private AudioManager audioManager;
 
     /**
      * {@inheritDoc}
@@ -135,6 +141,11 @@ public class ReceivedCallActivity
                 answerCall(call, false);
             }
         });
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        audioManager.requestAudioFocus(
+            null,
+            AudioManager.STREAM_RING,
+            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
     }
 
     /**
@@ -171,6 +182,7 @@ public class ReceivedCallActivity
                                         ReceivedCallActivity.this,
                                         callIdentifier);
                 startActivity(videoCall);
+                audioManager.abandonAudioFocus(null);
                 finish();
             }
         });
@@ -186,6 +198,7 @@ public class ReceivedCallActivity
 
         if(call.getCallState().equals(CallState.CALL_ENDED))
         {
+            audioManager.abandonAudioFocus(null);
             finish();
         }
         else
@@ -214,7 +227,7 @@ public class ReceivedCallActivity
     private void hangupCall()
     {
         CallManager.hangupCall(call);
-
+        audioManager.abandonAudioFocus(null);
         finish();
     }
 
@@ -267,6 +280,7 @@ public class ReceivedCallActivity
     {
         if(evt.getNewValue().equals(CallState.CALL_ENDED))
         {
+            audioManager.abandonAudioFocus(null);
             finish();
         }
     }

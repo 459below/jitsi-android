@@ -630,7 +630,9 @@ public class VideoCallActivity
      * @param newState the new peer state
      * @param stateString the state of the call peer
      */
-    public void setPeerState(CallPeerState oldState, CallPeerState newState,
+    public void setPeerState(
+        CallPeerState oldState,
+        final CallPeerState newState,
         final String stateString)
     {
         runOnUiThread(new Runnable()
@@ -640,6 +642,27 @@ public class VideoCallActivity
                 TextView statusName = (TextView) findViewById(R.id.callStatus);
 
                 statusName.setText(stateString);
+                AudioManager audioManager =
+                    (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+                if(newState.equals(CallPeerState.ALERTING_REMOTE_SIDE))
+                {
+                    audioManager.requestAudioFocus(
+                        null,
+                        AudioManager.STREAM_RING,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+                }
+                else if(newState.equals(CallPeerState.CONNECTED))
+                {
+                    audioManager.abandonAudioFocus(null);
+                    Intent intent =
+                        new Intent("com.android.music.musicservicecommand")
+                        .putExtra("command", "pause");
+                    sendBroadcast(intent);
+                }
+                else if(newState.equals(CallPeerState.DISCONNECTED)){
+                    audioManager.abandonAudioFocus(null);
+                }
             }
         });
     }
