@@ -1,3 +1,8 @@
+# Unmaintained!
+The development of Jitsi for Android has been stopped in early 2015. Issues and Pull Requests will not be addressed.
+
+******
+
 # Jitsi for Android
 
 Jitsi for Android is an Android port of the [Jitsi] project: The most feature-rich communicator with support for encrypted audio/video, chat and presence over SIP and XMPP.
@@ -29,6 +34,15 @@ To run the project (will install the apk and will run it on default test device)
 To make and run the project after modification:
 
     ant make run
+
+## Sources
+
+To obtain sources for .jar files located in lib folder checkout jitsi_android
+ branch of jitsi and libjitsi projects.
+ 
+ https://github.com/jitsi/jitsi/tree/jitsi_android
+ 
+ https://github.com/jitsi/libjitsi/tree/jitsi_android
 
 ## Contribution
 
