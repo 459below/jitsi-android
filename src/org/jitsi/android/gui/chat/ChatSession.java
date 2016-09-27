@@ -157,7 +157,7 @@ public class ChatSession
     }
 
     /**
-     * Sens the given message through the current chat transport.
+     * Sends the given message through the current chat transport.
      *
      * @param message the message to send
      */
