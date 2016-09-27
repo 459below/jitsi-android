@@ -276,7 +276,9 @@ public class ChatController
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
     {
-        if (actionId == EditorInfo.IME_ACTION_SEND)
+        if (actionId == EditorInfo.IME_ACTION_SEND 
+                || ((event.getAction() == KeyEvent.ACTION_DOWN)
+                && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)))
         {
             sendMessage();
             return true;
