@@ -399,12 +399,12 @@ public class ChatActivity
 
         ActionBarUtil.setSubtitle(this, status.getStatusName());
 
-//        byte[] avatarImage = metaContact.getAvatar();
-//
-//        if (avatarImage != null)
-//        {
-//            ActionBarUtil.setAvatar(this, avatarImage);
-//            ActionBarUtil.setStatus(this, status.getStatusIcon());
-//        }
+        byte[] avatarImage = metaContact.getAvatar();
+
+        if (avatarImage != null)
+        {
+            ActionBarUtil.setAvatar(this, avatarImage);
+            ActionBarUtil.setStatus(this, status.getStatusIcon());
+        }
     }
 }
