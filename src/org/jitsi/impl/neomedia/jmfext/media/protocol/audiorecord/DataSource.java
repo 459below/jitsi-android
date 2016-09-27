@@ -335,7 +335,7 @@ public class DataSource
 
                 audioRecord
                     = new AudioRecord(
-                            MediaRecorder.AudioSource.DEFAULT,
+                            MediaRecorder.AudioSource.VOICE_COMMUNICATION,
                             (int) sampleRate,
                             channelConfig,
                             audioFormat,
